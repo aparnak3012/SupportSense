@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SupportSense - Customer Support Management & Analytics</title>
+  <meta name="description" content="SupportSense is an AI customer support platform with grounded RAG document retrieval, automated confidence scoring, intelligent human escalation, and operational analytics.">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="styles.css">
+  <!-- Chart.js from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <!-- Top Utility Bar with Clickable Contact Links -->
+  <div class="top-bar">
+    <div class="container top-bar-inner">
+      <div>ShopEasy Customer Service Operations Portal</div>
+      <div class="top-bar-links">
+        <a href="tel:+18005550199" class="top-link">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          +1 (800) 555-0199
+        </a>
+        <a href="mailto:support@shopeasy.com" class="top-link">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          support@shopeasy.com
+        </a>
+        <a href="/api/health" target="_blank" class="top-link">API Status: Online</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="container header-inner">
+      <a href="/" class="brand">
+        <div class="brand-icon">SS</div>
+        <div class="brand-text">
+          <h1>SupportSense</h1>
+          <p>Grounded Customer Support Agent &bull; RAG Retrieval &bull; Confidence Escalation</p>
+        </div>
+      </a>
+
+      <!-- Desktop Action Buttons -->
+      <div class="header-actions">
+        <button id="btn-reingest" class="btn btn-secondary" title="Re-read documentation and update vector index">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2v6h-6M3 12a9 9 0 0 1 15-6.7L21 8M3 22v-6h6M21 12a9 9 0 0 1-15 6.7L3 16"/></svg>
+          Sync Knowledge Base
+        </button>
+        <button id="btn-gen-report-hdr" class="btn btn-primary" title="View latest weekly operational metrics">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Weekly Analytics
+        </button>
+      </div>
+
+      <!-- Mobile Menu Toggle Button -->
+      <button id="btn-mobile-menu" class="mobile-menu-btn" aria-label="Toggle Navigation Menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Menu -->
+  <div id="mobile-nav" class="mobile-nav">
+    <div class="mobile-nav-links">
+      <a href="#" class="mobile-nav-link active" data-tab-target="tickets-view">Tickets Queue</a>
+      <a href="#" class="mobile-nav-link" data-tab-target="reports-view">Weekly Analytics Report</a>
+    </div>
+    <div style="display: flex; gap: 8px; flex-direction: column;">
+      <button id="btn-mobile-reingest" class="btn btn-secondary" style="width: 100%;">Sync Knowledge Base</button>
+      <div style="font-size: 12px; color: var(--text-muted); margin-top: 8px; display: flex; flex-direction: column; gap: 4px;">
+        <a href="tel:+18005550199" class="top-link">Phone: +1 (800) 555-0199</a>
+        <a href="mailto:support@shopeasy.com" class="top-link">Email: support@shopeasy.com</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Container -->
+  <main class="main-content">
+    <div class="container">
+      <!-- Desktop Navigation Tabs -->
+      <div class="tabs-bar">
+        <div class="tabs-group">
+          <button class="tab-btn active" data-tab="tickets-view">Tickets Queue</button>
+          <button class="tab-btn" data-tab="reports-view">Weekly Operational Report</button>
+        </div>
+        <div style="font-size: 12px; color: var(--text-muted);">
+          Active Model: <span style="color: var(--text-main); font-weight: 600;">Claude 3 Haiku</span> &bull; Threshold: <span style="color: var(--text-main); font-weight: 600;">60%</span>
+        </div>
+      </div>
+
+      <!-- TAB 1: TICKETS VIEW -->
+      <div id="tickets-view" class="tab-content active">
+        <div class="dashboard-grid">
+          <!-- Left Column: Submit Ticket -->
+          <aside>
+            <div class="card">
+              <h2 class="card-title">Submit Support Ticket</h2>
+              <form id="ticket-form">
+                <div class="form-group">
+                  <label for="customer_email">Customer Email Address</label>
+                  <input type="email" id="customer_email" required placeholder="customer.name@example.com" value="alex.miller@customer.com">
+                </div>
+                <div class="form-group">
+                  <label for="ticket_text">Customer Inquiry or Problem</label>
+                  <textarea id="ticket_text" rows="5" required placeholder="Type the customer inquiry here..."></textarea>
+                </div>
+                <button type="submit" id="btn-submit-ticket" class="btn btn-primary" style="width: 100%;">
+                  Process Ticket
+                </button>
+              </form>
+            </div>
+
+            <!-- In-Scope & Out-of-Scope Test Scenarios -->
+            <div class="card">
+              <h3 class="card-title" style="font-size: 13px;">Pre-Configured Test Scenarios</h3>
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <button class="btn btn-secondary preset-btn" data-query="What is the return window for electronics and what is the restocking fee?">
+                  Electronics Return Window
+                </button>
+                <button class="btn btn-secondary preset-btn" data-query="How fast is overnight priority shipping and what is the daily order cutoff time?">
+                  Overnight Shipping Cutoff
+                </button>
+                <button class="btn btn-secondary preset-btn" data-query="I was charged twice on my credit card statement for the same order. Why?">
+                  Duplicate Charge Inquiry
+                </button>
+                <button class="btn btn-secondary preset-btn" data-query="Can I pay for my order using Bitcoin, Ethereum, or cryptocurrency?">
+                  Out-of-Scope (Crypto Payment)
+                </button>
+              </div>
+            </div>
+          </aside>
+
+          <!-- Right Column: Tickets Table -->
+          <section>
+            <div class="card">
+              <div class="card-title">
+                <span>Support Tickets Queue</span>
+                <span id="ticket-count" style="font-size: 13px; font-weight: normal; color: var(--text-muted);">0 tickets loaded</span>
+              </div>
+
+              <!-- Filter Controls -->
+              <div class="filters-bar">
+                <div class="filter-item">
+                  <label for="filter-status">Resolution Status</label>
+                  <select id="filter-status">
+                    <option value="all">All Statuses</option>
+                    <option value="auto_resolved">Auto Resolved (AI)</option>
+                    <option value="escalated">Escalated (Human Needed)</option>
+                    <option value="human_resolved">Human Resolved</option>
+                    <option value="new">New</option>
+                  </select>
+                </div>
+
+                <div class="filter-item">
+                  <label for="filter-tag">Category Tag</label>
+                  <select id="filter-tag">
+                    <option value="all">All Categories</option>
+                    <option value="refund">refund</option>
+                    <option value="shipping">shipping</option>
+                    <option value="payment">payment</option>
+                    <option value="login">login</option>
+                    <option value="cancellation">cancellation</option>
+                    <option value="warranty">warranty</option>
+                    <option value="other">other</option>
+                  </select>
+                </div>
+
+                <div>
+                  <button id="btn-refresh" class="btn btn-secondary" style="padding: 8px 14px;">
+                    Refresh Queue
+                  </button>
+                </div>
+              </div>
+
+              <!-- Responsive Table Wrapper -->
+              <div class="table-wrapper">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Customer Email</th>
+                      <th>Inquiry Summary</th>
+                      <th>Category Tags</th>
+                      <th>Urgency</th>
+                      <th>Confidence</th>
+                      <th>Status</th>
+                      <th>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tickets-tbody">
+                    <tr><td colspan="8" style="text-align: center; color: var(--text-muted); padding: 24px;">Loading tickets from database...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- TAB 2: REPORTS VIEW -->
+      <div id="reports-view" class="tab-content" style="display: none;">
+        <div class="card">
+          <div class="card-title">
+            <div>
+              <h2 style="font-size: 18px;">Weekly Operations & Knowledge Gap Report</h2>
+              <p id="report-period" style="font-size: 12px; font-weight: normal; color: var(--text-muted); margin-top: 2px;">Loading reporting cycle...</p>
+            </div>
+            <button id="btn-generate-report" class="btn btn-primary">
+              Generate Report Now
+            </button>
+          </div>
+
+          <!-- Real Metrics Cards (From SQLite) -->
+          <div class="report-grid">
+            <div class="metric-card">
+              <div class="detail-label">Total Tickets Processed</div>
+              <div class="num" id="metric-total">0</div>
+            </div>
+            <div class="metric-card">
+              <div class="detail-label">Auto-Resolved by AI</div>
+              <div class="num" id="metric-auto" style="color: var(--status-auto-resolved);">0%</div>
+            </div>
+            <div class="metric-card">
+              <div class="detail-label">Escalated to Agent</div>
+              <div class="num" id="metric-esc" style="color: var(--status-escalated);">0%</div>
+            </div>
+            <div class="metric-card">
+              <div class="detail-label">Average Confidence Score</div>
+              <div class="num" id="metric-conf" style="color: #60a5fa;">0.00</div>
+            </div>
+          </div>
+
+          <!-- Chart and Knowledge Gaps Grid -->
+          <div class="report-split-grid">
+            <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 16px; min-width: 0;">
+              <div class="detail-label">Top Category Volume (Current vs Previous Week)</div>
+              <div class="chart-container">
+                <canvas id="topTagsChart"></canvas>
+              </div>
+            </div>
+
+            <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 16px;">
+              <div class="detail-label">Top Knowledge Gaps (Highest Escalation Rates)</div>
+              <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
+                Topics that trigger human escalations most frequently because documentation is missing or incomplete:
+              </p>
+              <div id="knowledge-gaps-list">
+                <p style="color: var(--text-muted); font-size: 13px;">No knowledge gaps recorded.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Executive Analytical Insight -->
+          <div class="card" style="margin-bottom: 0;">
+            <div class="detail-label">AI Executive Operational Commentary</div>
+            <div id="report-insight-text" class="insight-text-box">
+              Loading analytical insights...
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Ticket Detail Modal -->
+  <div id="ticket-modal" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <h2 id="modal-ticket-id" style="font-size: 18px;">Ticket #</h2>
+          <p id="modal-customer" style="color: var(--text-muted); font-size: 12px; margin-top: 2px;"></p>
+        </div>
+        <button id="modal-close-btn" class="close-btn" aria-label="Close Modal">&times;</button>
+      </div>
+
+      <div class="detail-section">
+        <div class="detail-label">Customer Inquiry</div>
+        <p id="modal-text" style="font-size: 14px; white-space: pre-wrap; line-height: 1.5;"></p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-bottom: 14px;">
+        <div class="detail-section" style="margin-bottom: 0;">
+          <div class="detail-label">Classification & Urgency</div>
+          <div id="modal-tags" style="margin-bottom: 6px;"></div>
+          <div id="modal-urgency"></div>
+        </div>
+
+        <div class="detail-section" style="margin-bottom: 0;">
+          <div class="detail-label">Calculated Confidence</div>
+          <div id="modal-confidence-val" style="font-size: 16px; font-weight: 700;"></div>
+          <div class="confidence-bar-bg" style="width: 100%; height: 6px;">
+            <div id="modal-confidence-bar" class="confidence-bar-fill"></div>
+          </div>
+          <div id="modal-sources" style="font-size: 11px; color: var(--text-muted); margin-top: 6px;"></div>
+        </div>
+      </div>
+
+      <!-- AI Grounded Answer -->
+      <div id="modal-ai-answer-section" class="detail-section">
+        <div class="detail-label">AI Generated Grounded Response</div>
+        <p id="modal-ai-answer" style="font-size: 13px; line-height: 1.6; white-space: pre-wrap;"></p>
+      </div>
+
+      <!-- 3-Line Escalation Briefing -->
+      <div id="modal-summary-section" class="detail-section" style="display: none;">
+        <div class="detail-label">Escalation Briefing for Human Agent</div>
+        <div id="modal-summary" class="summary-box"></div>
+      </div>
+
+      <!-- Human Agent Reply Form -->
+      <div id="modal-reply-section" class="detail-section" style="border-color: var(--status-human-resolved-border); background: var(--status-human-resolved-bg);">
+        <div class="detail-label" style="color: var(--accent-primary);">Human Support Agent Response</div>
+        <div id="modal-existing-reply" style="display: none; margin-bottom: 12px; font-size: 13px; padding: 10px; background: #ffffff; border-radius: 4px; border: 1px solid var(--border-color);"></div>
+        <form id="resolve-form">
+          <textarea id="human_reply_input" rows="3" placeholder="Enter your response to the customer to resolve this ticket..." required style="margin-bottom: 10px;"></textarea>
+          <button type="submit" id="btn-resolve-ticket" class="btn btn-primary">
+            Submit Reply & Resolve Ticket
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <!-- Footer with Clickable Links and Current Year -->
+  <footer class="app-footer">
+    <div class="container footer-content">
+      <div class="footer-copy">
+        &copy; <span id="current-year">2026</span> SupportSense Operations Inc. All rights reserved.
+      </div>
+      <div class="footer-links">
+        <a href="tel:+18005550199" class="footer-link">Phone: +1 (800) 555-0199</a>
+        <span class="footer-sep">&bull;</span>
+        <a href="mailto:support@shopeasy.com" class="footer-link">support@shopeasy.com</a>
+        <span class="footer-sep">&bull;</span>
+        <a href="/api/health" class="footer-link" target="_blank">Health Endpoint</a>
+        <span class="footer-sep">&bull;</span>
+        <a href="/404" class="footer-link">Custom 404 Page</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

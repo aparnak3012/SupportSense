@@ -1,0 +1,254 @@
+[
+  {
+    "id": 1,
+    "text": "What is the return window for clothing items at ShopEasy?",
+    "should_answer": true,
+    "expected_keywords": ["30 days", "return"]
+  },
+  {
+    "id": 2,
+    "text": "How many days do I have to return electronics?",
+    "should_answer": true,
+    "expected_keywords": ["14 days"]
+  },
+  {
+    "id": 3,
+    "text": "How long does it take for a refund to show on my credit card?",
+    "should_answer": true,
+    "expected_keywords": ["business days", "refund"]
+  },
+  {
+    "id": 4,
+    "text": "Do items need to be in their original packaging to be eligible for a return?",
+    "should_answer": true,
+    "expected_keywords": ["original", "packaging"]
+  },
+  {
+    "id": 5,
+    "text": "Can I receive store credit instead of a refund to my original card?",
+    "should_answer": true,
+    "expected_keywords": ["store credit"]
+  },
+  {
+    "id": 6,
+    "text": "How long does standard shipping take?",
+    "should_answer": true,
+    "expected_keywords": ["business days", "shipping"]
+  },
+  {
+    "id": 7,
+    "text": "Do you offer express shipping and what is the delivery time?",
+    "should_answer": true,
+    "expected_keywords": ["express", "day"]
+  },
+  {
+    "id": 8,
+    "text": "Where can I find the tracking number for my order?",
+    "should_answer": true,
+    "expected_keywords": ["tracking", "order"]
+  },
+  {
+    "id": 9,
+    "text": "Does ShopEasy support international delivery?",
+    "should_answer": true,
+    "expected_keywords": ["international", "shipping"]
+  },
+  {
+    "id": 10,
+    "text": "What should I do if my package is marked delivered but I cannot find it?",
+    "should_answer": true,
+    "expected_keywords": ["carrier", "support", "package"]
+  },
+  {
+    "id": 11,
+    "text": "Which credit cards and payment methods are accepted on ShopEasy?",
+    "should_answer": true,
+    "expected_keywords": ["Visa", "Mastercard", "payment"]
+  },
+  {
+    "id": 12,
+    "text": "Can I pay using PayPal or Apple Pay?",
+    "should_answer": true,
+    "expected_keywords": ["PayPal", "Apple Pay"]
+  },
+  {
+    "id": 13,
+    "text": "Why was my card declined when checking out?",
+    "should_answer": true,
+    "expected_keywords": ["billing", "bank", "card"]
+  },
+  {
+    "id": 14,
+    "text": "I was double charged for my order, how do I resolve this?",
+    "should_answer": true,
+    "expected_keywords": ["charge", "business days", "bank"]
+  },
+  {
+    "id": 15,
+    "text": "Does my billing address need to match the address registered with my bank?",
+    "should_answer": true,
+    "expected_keywords": ["billing", "address"]
+  },
+  {
+    "id": 16,
+    "text": "How do I reset my account password if I forgot it?",
+    "should_answer": true,
+    "expected_keywords": ["reset", "password", "email"]
+  },
+  {
+    "id": 17,
+    "text": "How many failed login attempts lock my account?",
+    "should_answer": true,
+    "expected_keywords": ["5", "lock"]
+  },
+  {
+    "id": 18,
+    "text": "Does ShopEasy support two-factor authentication (2FA)?",
+    "should_answer": true,
+    "expected_keywords": ["two-factor", "2FA", "security"]
+  },
+  {
+    "id": 19,
+    "text": "How can I update or change the email address linked to my account?",
+    "should_answer": true,
+    "expected_keywords": ["account", "email", "settings"]
+  },
+  {
+    "id": 20,
+    "text": "What should I do if I am not receiving the password reset verification email?",
+    "should_answer": true,
+    "expected_keywords": ["spam", "email", "folder"]
+  },
+  {
+    "id": 21,
+    "text": "How much time do I have to cancel an order after placing it?",
+    "should_answer": true,
+    "expected_keywords": ["30 minutes", "cancel"]
+  },
+  {
+    "id": 22,
+    "text": "Can I cancel an order that has already shipped?",
+    "should_answer": true,
+    "expected_keywords": ["shipped", "cannot", "return"]
+  },
+  {
+    "id": 23,
+    "text": "How do I cancel my order from the website dashboard?",
+    "should_answer": true,
+    "expected_keywords": ["order", "cancel", "account"]
+  },
+  {
+    "id": 24,
+    "text": "If I cancel my order, where does the money get refunded?",
+    "should_answer": true,
+    "expected_keywords": ["refund", "payment", "original"]
+  },
+  {
+    "id": 25,
+    "text": "What happens if an order status says Processing when I try to cancel?",
+    "should_answer": true,
+    "expected_keywords": ["processing", "warehouse", "cancel"]
+  },
+  {
+    "id": 26,
+    "text": "What is covered under the standard product warranty?",
+    "should_answer": true,
+    "expected_keywords": ["warranty", "manufacturing", "defects"]
+  },
+  {
+    "id": 27,
+    "text": "How long is the warranty period for ShopEasy products?",
+    "should_answer": true,
+    "expected_keywords": ["1-year", "warranty"]
+  },
+  {
+    "id": 28,
+    "text": "Does the warranty cover accidental water damage or screen drops?",
+    "should_answer": true,
+    "expected_keywords": ["accidental", "not covered", "warranty"]
+  },
+  {
+    "id": 29,
+    "text": "What proof do I need to submit to file a warranty claim?",
+    "should_answer": true,
+    "expected_keywords": ["proof of purchase", "receipt", "order"]
+  },
+  {
+    "id": 30,
+    "text": "Will ShopEasy repair or replace a defective item under warranty?",
+    "should_answer": true,
+    "expected_keywords": ["repair", "replace", "defective"]
+  },
+  {
+    "id": 31,
+    "text": "Can I return an opened skincare or beauty product that I used?",
+    "should_answer": true,
+    "expected_keywords": ["unopened", "hygiene", "return"]
+  },
+  {
+    "id": 32,
+    "text": "Can I book a commercial flight from New York to London through ShopEasy?",
+    "should_answer": false,
+    "expected_keywords": []
+  },
+  {
+    "id": 33,
+    "text": "Do you accept payments in Bitcoin, Ethereum, or Dogecoin?",
+    "should_answer": false,
+    "expected_keywords": []
+  },
+  {
+    "id": 34,
+    "text": "How do I book a hotel room reservation for my upcoming vacation?",
+    "should_answer": false,
+    "expected_keywords": []
+  },
+  {
+    "id": 35,
+    "text": "Can I schedule an appointment to get my dog groomed at your store?",
+    "should_answer": false,
+    "expected_keywords": []
+  },
+  {
+    "id": 36,
+    "text": "What is the secret recipe for traditional Italian sourdough pizza dough?",
+    "should_answer": false,
+    "expected_keywords": []
+  },
+  {
+    "id": 37,
+    "text": "Can your support team give me medical advice for a high fever and headache?",
+    "should_answer": false,
+    "expected_keywords": []
+  },
+  {
+    "id": 38,
+    "text": "Which tech stocks should I invest in for high dividends this quarter?",
+    "should_answer": false,
+    "expected_keywords": []
+  },
+  {
+    "id": 39,
+    "text": "How do I apply for a tourist visa to visit France next summer?",
+    "should_answer": false,
+    "expected_keywords": []
+  },
+  {
+    "id": 40,
+    "text": "Can you service my Honda Civic transmission and change the engine oil?",
+    "should_answer": false,
+    "expected_keywords": []
+  },
+  {
+    "id": 41,
+    "text": "Where can I buy tickets for the Coldplay world tour stadium concert?",
+    "should_answer": false,
+    "expected_keywords": []
+  },
+  {
+    "id": 42,
+    "text": "How do I renew my official state driver's license online?",
+    "should_answer": false,
+    "expected_keywords": []
+  }
+]
